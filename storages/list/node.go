@@ -2,6 +2,6 @@ package list
 
 type Node struct {
 	index    int64
-	Data     int64
-	NextNode *Node
+	data     int64
+	nextNode *Node
 }

@@ -7,50 +7,76 @@ import (
 
 type List struct {
 	indexes   int64
-	Len       int64
-	FirstNode *Node
-	//LastNode  *Node
+	len       int64
+	firstNode *Node
+	LastNode  *Node
 }
 
 func NewList() *List {
 	return &List{
 		indexes:   0,
-		Len:       0,
-		FirstNode: nil,
-		//LastNode:  nil,
+		len:       0,
+		firstNode: nil,
+		LastNode:  nil,
 	}
 }
 
 func (l *List) Add(data int64) (index int64) {
-	if l.FirstNode == nil {
+	if l.firstNode == nil {
 		l.indexes += 1
 		n := &Node{
 			index:    l.indexes,
-			Data:     data,
-			NextNode: nil,
+			data:     data,
+			nextNode: nil,
 		}
-		l.FirstNode = n
+		l.firstNode = n
+		l.LastNode = n
+		l.len++
 		return n.index
 	}
-	n := l.FirstNode
-	for n.NextNode != nil {
-		n = n.NextNode
-	}
 	l.indexes += 1
+
 	newNode := &Node{
 		index:    l.indexes,
-		Data:     data,
-		NextNode: nil,
+		data:     data,
+		nextNode: nil,
 	}
-	n.NextNode = newNode
+
+	l.LastNode.nextNode = newNode
+	l.LastNode = newNode
+	l.len++
 	return newNode.index
 }
 
-func (l *List) String() string {
-	sb := strings.Builder{}
+func (l *List) Len() int64 {
+	return l.len
+}
 
-	for n := l.FirstNode; n.NextNode != nil; n = n.NextNode {
-		sb.WriteString(fmt.Sprintf("index: '%d' \t data: '%d'\n", n.index, n.Data))
+func (l *List) String() string {
+	if l.firstNode == nil {
+		return "empty list"
 	}
-	return sb.String()
+
+	sb := strings.Builder{}
+	n := l.firstNode
+	for {
+		sb.WriteString(fmt.Sprintf("index: '%d' \t data: '%d'", n.index, n.data))
+		if n.nextNode == nil {
+			return sb.String()
+		}
+		sb.WriteString("\n")
+		n = n.nextNode
+	}
+}
+
+func (l *List) SortIncrease() {
+
+}
+
+func (l *List) SortDecrease() {
+	f := l.firstNode
+	ln := l.LastNode
+
+	t := f
+
 }

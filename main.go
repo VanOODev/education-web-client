@@ -7,10 +7,6 @@ import (
 
 func main() {
 	l := list.NewList()
-	l.Add(23)
-	l.Add(35)
-	l.Add(12)
-	l.Add(8)
-	l.Add(1)
-	fmt.Println(l)
+	in := l.Add(23)
+	fmt.Println(in)
 }
