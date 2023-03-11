@@ -74,9 +74,5 @@ func (l *List) SortIncrease() {
 }
 
 func (l *List) SortDecrease() {
-	f := l.firstNode
-	ln := l.LastNode
-
-	t := f
 
 }
