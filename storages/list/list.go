@@ -62,6 +62,29 @@ func (l *List) Get(index int64) (data int64, err error) {
 	return
 }
 
+func (l *List) Delete(index int64) {
+
+	if index == l.firstNode.index {
+		l.firstNode = l.firstNode.nextNode
+		l.len--
+		return
+	}
+
+	temp1 := l.firstNode.nextNode
+	temp2 := l.firstNode
+
+	for ; temp1 != nil; temp1 = temp1.nextNode {
+		if index == temp1.index {
+			if temp1 == l.LastNode {
+				l.LastNode = temp2
+			}
+			temp2.nextNode = temp1.nextNode
+			return
+		}
+		temp2 = temp2.nextNode
+	}
+}
+
 func (l *List) Len() int64 {
 	return l.len
 }
