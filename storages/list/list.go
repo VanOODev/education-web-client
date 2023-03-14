@@ -1,8 +1,8 @@
 package list
 
 import (
+	"errors"
 	"fmt"
-	"log"
 	"strings"
 )
 
@@ -49,15 +49,17 @@ func (l *List) Add(data int64) (index int64) {
 	return newNode.index
 }
 
-func (l *List) Get(index int64) (data int64) {
-	if index < l.firstNode.index || index > l.LastNode.index {
-		log.Fatal("Out of List")
+func (l *List) Get(index int64) (data int64, err error) {
+	if index <= 0 {
+		err = errors.New("Index out of range")
+		return
 	}
-	temp := l.firstNode
-	for i := int64(1); i < index; i++ {
-		temp = temp.nextNode
+	for n := l.firstNode; n != nil; n = n.nextNode {
+		if n.index == index {
+			return n.data, nil
+		}
 	}
-	return temp.data
+	return
 }
 
 func (l *List) Len() int64 {
