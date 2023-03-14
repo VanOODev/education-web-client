@@ -2,6 +2,7 @@ package list
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -46,6 +47,17 @@ func (l *List) Add(data int64) (index int64) {
 	l.LastNode = newNode
 	l.len++
 	return newNode.index
+}
+
+func (l *List) Get(index int64) (data int64) {
+	if index < l.firstNode.index || index > l.LastNode.index {
+		log.Fatal("Out of List")
+	}
+	temp := l.firstNode
+	for i := int64(1); i < index; i++ {
+		temp = temp.nextNode
+	}
+	return temp.data
 }
 
 func (l *List) Len() int64 {
