@@ -13,7 +13,7 @@ func main() {
 	l.Add(40)
 	l.Add(60)
 	l.Add(50)
-	l.SortIncrease()
+	l.SortIncrease1()
 	//l.Delete(4)
 
 	fmt.Println(l.String())

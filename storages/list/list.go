@@ -124,6 +124,43 @@ func (l *List) SortIncrease() {
 			second = second.nextNode
 		}
 	}
+}
+
+func (l *List) SortIncrease1() {
+	if l.firstNode == nil {
+		return
+	}
+	if l.firstNode.nextNode == nil {
+		return
+	}
+
+	tn1 := l.firstNode
+	tn2 := l.firstNode.nextNode
+
+	//if tn1.data > tn2.data {
+	//	tn := tn2.nextNode
+	//	tn1.nextNode = tn
+	//	tn2.nextNode = tn1
+	//	l.firstNode = tn2
+	//	l.LastNode = tn1
+	//}
+
+	//tn1 = l.firstNode
+	//tn2 = l.firstNode.nextNode
+
+	for i := int64(0); i < l.len; i++ {
+		for j := int64(0); j < l.len && tn2.nextNode != nil; j++ {
+			if tn1.data > tn2.data {
+				tn := tn2.nextNode
+				tn1.nextNode = tn
+				tn2.nextNode = tn1
+				l.firstNode = tn2
+				l.LastNode = tn1
+			}
+			tn1 = tn1.nextNode
+			tn2 = tn2.nextNode
+		}
+	}
 
 }
 
