@@ -79,7 +79,7 @@ func (l *List) Delete(index int64) {
 				l.LastNode = temp2
 			}
 			temp2.nextNode = temp1.nextNode
-			return
+			l.len--
 		}
 		temp2 = temp2.nextNode
 	}
@@ -107,6 +107,23 @@ func (l *List) String() string {
 }
 
 func (l *List) SortIncrease() {
+	for i := int64(1); i < l.len; i++ {
+		first := l.firstNode
+		second := l.firstNode.nextNode
+		for j := int64(1); j < l.len; j++ {
+			if first.data > second.data {
+				temp1 := first.data
+				temp2 := first.index
+				first.index = second.index
+				first.data = second.data
+				second.data = temp1
+				second.index = temp2
+
+			}
+			first = first.nextNode
+			second = second.nextNode
+		}
+	}
 
 }
 
