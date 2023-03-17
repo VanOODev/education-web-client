@@ -1,5 +1,5 @@
 package slice
 
-type Slice struct {
+type SliceStorage struct {
 	st []int64
 }
