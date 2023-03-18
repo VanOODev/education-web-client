@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/VanOODev/education-web-client/storages/list"
+	"github.com/VanOODev/education-web-client/storages/slice"
 )
 
 func main() {
