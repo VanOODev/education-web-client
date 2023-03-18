@@ -1,6 +1,9 @@
 package slice
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func NewSliceStorage() *SliceStorage {
 	return &SliceStorage{
@@ -8,8 +11,9 @@ func NewSliceStorage() *SliceStorage {
 	}
 }
 
-func (s *SliceStorage) Add(data int64) {
+func (s *SliceStorage) Add(data int64) (index int64) {
 	s.st = append(s.st, data)
+	return 0
 }
 
 func (s *SliceStorage) Delete(index int64) {
@@ -21,6 +25,9 @@ func (s *SliceStorage) Get(index int64) (data int64) {
 	return data
 }
 
-func (s *SliceStorage) Print() {
-	fmt.Println(s.st)
+func (s *SliceStorage) String() string {
+	sbt := strings.Builder{}
+	sbt.WriteString(fmt.Sprintf("%d", s.st))
+	return sbt.String()
+
 }

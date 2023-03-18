@@ -1,4 +1,5 @@
-//package storages
+package storages
+
 //
 //type Storage interface {
 //	Add()

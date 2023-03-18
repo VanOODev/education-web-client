@@ -1,7 +1,6 @@
 package list
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 )
@@ -49,14 +48,10 @@ func (l *List) Add(data int64) (index int64) {
 	return newNode.index
 }
 
-func (l *List) Get(index int64) (data int64, err error) {
-	if index <= 0 {
-		err = errors.New("Index out of range")
-		return
-	}
+func (l *List) Get(index int64) (data int64) {
 	for n := l.firstNode; n != nil; n = n.nextNode {
 		if n.index == index {
-			return n.data, nil
+			return n.data
 		}
 	}
 	return
@@ -93,7 +88,6 @@ func (l *List) String() string {
 	if l.firstNode == nil {
 		return "empty list"
 	}
-
 	sb := strings.Builder{}
 	n := l.firstNode
 	for {
