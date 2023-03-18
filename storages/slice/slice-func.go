@@ -8,19 +8,19 @@ func NewSliceStorage() *SliceStorage {
 	}
 }
 
-func (s *SliceStorage) SlAdd(data int64) {
+func (s *SliceStorage) Add(data int64) {
 	s.st = append(s.st, data)
 }
 
-func (s *SliceStorage) SlDelete(index int64) {
+func (s *SliceStorage) Delete(index int64) {
 	s.st = append(s.st[:index], s.st[index+1:]...)
 }
 
-func (s *SliceStorage) SlGet(index int64) (data int64) {
+func (s *SliceStorage) Get(index int64) (data int64) {
 	data = s.st[index]
 	return data
 }
 
-func (s *SliceStorage) SlPrint() {
+func (s *SliceStorage) Print() {
 	fmt.Println(s.st)
 }

@@ -2,11 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/VanOODev/education-web-client/storages/list"
+	"github.com/VanOODev/education-web-client/storages/slice"
 )
 
 func main() {
 	l := list.NewList()
-	in := l.Add(23)
-	fmt.Println(in)
+	l.Add(10)
+	l.Add(20)
+	l.Add(30)
+	l.Add(40)
+	l.Add(50)
+	//l.Delete(5)
+	//l.Add(60)
+	fmt.Println(l.String())
 }
