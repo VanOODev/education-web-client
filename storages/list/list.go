@@ -91,7 +91,7 @@ func (l *List) Len() int64 {
 
 func (l *List) String() string {
 	if l.firstNode == nil {
-		return "empty list"
+		return "empty l"
 	}
 
 	sb := strings.Builder{}
@@ -127,41 +127,80 @@ func (l *List) SortIncrease() {
 }
 
 func (l *List) SortIncrease1() {
-	if l.firstNode == nil {
-		return
-	}
-	if l.firstNode.nextNode == nil {
+	if l.len <= 1 {
 		return
 	}
 
-	tn1 := l.firstNode
-	tn2 := l.firstNode.nextNode
-
-	//if tn1.data > tn2.data {
-	//	tn := tn2.nextNode
-	//	tn1.nextNode = tn
-	//	tn2.nextNode = tn1
-	//	l.firstNode = tn2
-	//	l.LastNode = tn1
-	//}
-
-	//tn1 = l.firstNode
-	//tn2 = l.firstNode.nextNode
-
-	for i := int64(0); i < l.len; i++ {
-		for j := int64(0); j < l.len && tn2.nextNode != nil; j++ {
-			if tn1.data > tn2.data {
-				tn := tn2.nextNode
-				tn1.nextNode = tn
-				tn2.nextNode = tn1
-				l.firstNode = tn2
-				l.LastNode = tn1
+	for i := 0; i < int(l.len)-1; i++ {
+		currNode := l.firstNode
+		prevNode := (*Node)(nil)
+		swapped := false
+		for j := 0; j < int(l.len)-i-1; j++ {
+			nextNode := currNode.nextNode
+			if currNode.data > nextNode.data {
+				// меняем ссылки на ноды местами
+				if prevNode != nil {
+					prevNode.nextNode = nextNode
+				} else {
+					l.firstNode = nextNode
+				}
+				currNode.nextNode = nextNode.nextNode
+				nextNode.nextNode = currNode
+				currNode, nextNode = nextNode, currNode
+				swapped = true
 			}
-			tn1 = tn1.nextNode
-			tn2 = tn2.nextNode
+			prevNode = currNode
+			currNode = currNode.nextNode
+		}
+		// Если за проход не было перестановок, то список уже отсортирован
+		if !swapped {
+			break
 		}
 	}
 
+	// Обновляем ссылку на последнюю ноду
+	lastNode := l.firstNode
+	for lastNode.nextNode != nil {
+		lastNode = lastNode.nextNode
+	}
+	l.LastNode = lastNode
+}
+
+func (l *List) SortIncrease2() {
+	if l.len <= 1 {
+		return
+	}
+
+	for i := 0; i < int(l.len)-1; i++ {
+		currNode := l.firstNode
+		var prevNode *Node = nil
+		swapped := false
+		var lastSwappedNode *Node = nil // Ссылка на последнюю ноду, которая была переставлена
+		for j := 0; j < int(l.len)-i-1; j++ {
+			nextNode := currNode.nextNode
+			if currNode.data > nextNode.data {
+				// меняем ссылки на ноды местами
+				if prevNode != nil {
+					prevNode.nextNode = nextNode
+				} else {
+					l.firstNode = nextNode
+				}
+				currNode.nextNode = nextNode.nextNode
+				nextNode.nextNode = currNode
+				currNode, nextNode = nextNode, currNode
+				swapped = true
+				lastSwappedNode = nextNode // Сохраняем ссылку на последнюю переставленную ноду
+			}
+			prevNode = currNode
+			currNode = currNode.nextNode
+		}
+		// Если за проход не было перестановок, то список уже отсортирован
+		if !swapped {
+			break
+		}
+		// Устанавливаем ссылку на последнюю переставленную ноду в качестве lastNode
+		l.LastNode = lastSwappedNode
+	}
 }
 
 func (l *List) SortDecrease() {
